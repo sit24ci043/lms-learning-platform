@@ -134,9 +134,7 @@ Signup/Login → Dashboard → Course Listing → Course Detail → Video Player
 
 1. Clone the repository
 
-git clone https://github.com/sit24ci043/lms-project.git
-cd lms-project
-
+git clone https://github.com/sit24ci043/lms-learning-platform.git
 2. Install dependencies
 
 npm install
