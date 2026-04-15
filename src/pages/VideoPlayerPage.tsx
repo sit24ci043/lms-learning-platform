@@ -7,8 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle2, Circle, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import ReactPlayer from 'react-player';
 import type { Session as LmsSession } from '@/types/lms';
+
+const getYouTubeId = (url: string) => {
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/))([^?&]+)/);
+  return match?.[1] || '';
+};
 
 const VideoPlayerPage = () => {
   const { courseId, sessionId } = useParams<{ courseId: string; sessionId: string }>();
@@ -67,6 +71,8 @@ const VideoPlayerPage = () => {
     </div>
   );
 
+  const videoId = getYouTubeId(session.youtube_url);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -84,13 +90,19 @@ const VideoPlayerPage = () => {
           {/* Video player */}
           <div className="lg:col-span-2">
             <div className="mb-4 overflow-hidden rounded-xl bg-foreground/5 aspect-video">
-              <ReactPlayer
-                url={session.youtube_url}
-                width="100%"
-                height="100%"
-                controls
-                playing={false}
-              />
+              {videoId ? (
+                <iframe
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title={session.title}
+                  className="h-full w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center text-muted-foreground">
+                  Invalid video URL
+                </div>
+              )}
             </div>
             <div className="flex items-start justify-between gap-4">
               <div>
