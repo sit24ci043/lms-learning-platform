@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle2, Circle, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 import type { Session as LmsSession } from '@/types/lms';
 
 const VideoPlayerPage = () => {
